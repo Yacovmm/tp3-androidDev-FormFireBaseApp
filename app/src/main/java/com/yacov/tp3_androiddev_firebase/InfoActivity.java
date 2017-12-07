@@ -19,7 +19,7 @@ import static com.yacov.tp3_androiddev_firebase.ListViewActivity.idPosition;
 public class InfoActivity extends AppCompatActivity {
 
     private String user_key = null;
-    private TextView singlwName, singleSenha;
+    private TextView singlwName, singleCidade ,singleTel, singleCel, singleCpf, singleEmail , singleSenha;
     private DatabaseReference mDatabase;
 
 
@@ -33,6 +33,13 @@ public class InfoActivity extends AppCompatActivity {
 
         singlwName = (TextView) findViewById(R.id.singleNameID);
         singleSenha = (TextView) findViewById(R.id.singleSenhaID);
+        singleCpf = (TextView) findViewById(R.id.singleCpfID);
+        singleTel = (TextView) findViewById(R.id.singleTelID);
+        singleCel = (TextView) findViewById(R.id.singleCelID);
+        singleEmail = (TextView) findViewById(R.id.singleEmailID);
+        singleCidade = (TextView) findViewById(R.id.singleCidadeID);
+
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Register");
 
         mDatabase.child(user_key).addValueEventListener(new ValueEventListener() {
@@ -40,9 +47,19 @@ public class InfoActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String stringName = (String) dataSnapshot.child("name").getValue();
                 String stringSenha = (String) dataSnapshot.child("password").getValue();
+                String stringTel = (String) dataSnapshot.child("tel").getValue();
+                String stringCel = (String) dataSnapshot.child("cel").getValue();
+                String stringEmail = (String) dataSnapshot.child("email").getValue();
+                String stringCidade = (String) dataSnapshot.child("city").getValue();
+                String stringCpf = (String) dataSnapshot.child("cpf").getValue();
 
-                singlwName.setText(stringName);
-                singleSenha.setText(stringSenha);
+                singlwName.setText("Name: "+ stringName);
+                singleSenha.setText("Senha: " + stringSenha);
+                singleCidade.setText("Cidade: "+ stringCidade);
+                singleCpf.setText("Cpf: "+ stringCpf);
+                singleTel.setText("Tel: "+ stringTel);
+                singleCel.setText("Cel: "+ stringCel);
+                singleEmail.setText("Email: "+ stringEmail);
 
             }
 
